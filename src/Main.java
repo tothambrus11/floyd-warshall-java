@@ -10,27 +10,27 @@ public class Main {
                 {true, true, false, false, false, true, false, true, false, true, false, true, false, false, false, true, true},
                 {false, false, false, false, false, false, false, true, true, true, false, false, false, false, false, false, false}
         };
-int[][][][] d = floydWarshall(map);
+        int[][][][] d = floydWarshall(map);
 
-String json = "[";
-int A_x = 6;
-int A_y = 1;
+        String json = "[";
+        int A_x = 6;
+        int A_y = 1;
 
-for (int B_y = 0; B_y < map.length; B_y++) {
-    json += "[";
-    for (int B_x = 0; B_x < map[0].length; B_x++) {
-        json += d[A_x][A_y][B_x][B_y];
-        if (B_x != map[0].length - 1) {
-            json += ",";
+        for (int B_y = 0; B_y < map.length; B_y++) {
+            json += "[";
+            for (int B_x = 0; B_x < map[0].length; B_x++) {
+                json += d[A_x][A_y][B_x][B_y];
+                if (B_x != map[0].length - 1) {
+                    json += ",";
+                }
+            }
+            json += "]";
+            if (B_y != map.length - 1) {
+                json += ",";
+            }
         }
-    }
-    json += "]";
-    if (B_y != map.length - 1) {
-        json += ",";
-    }
-}
-json += "]";
-System.out.println(json);
+        json += "]";
+        System.out.println(json);
 
     }
 
