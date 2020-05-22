@@ -1,14 +1,11 @@
 public class Main {
     public static void main(String[] args) {
         boolean[][] map = new boolean[][]{
-                {false, false, true, true, false, false, false, true, true, true, false, false, false, true, true, false, false},
-                {true, false, false, true, false, true, true, true, false, true, true, true, false, true, false, false, true},
-                {true, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true, true},
-                {true, false, true, false, true, false, false, false, true, false, false, false, true, false, true, false, true},
-                {false, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, false},
-                {false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false},
-                {true, true, false, false, false, true, false, true, false, true, false, true, false, false, false, true, true},
-                {false, false, false, false, false, false, false, true, true, true, false, false, false, false, false, false, false}
+                {false, false, false, false, false, false, true, true, true, false},
+                {false, true, true, true, true, true, true, false, true, false},
+                {false, true, false, false, true, false, false, false, true, false},
+                {false, true, false, false, true, false, true, true, true, false},
+                {false, true, true, true, true, true, true, false, false, false}
         };
         int[][][][] d = floydWarshall(map);
 
@@ -40,37 +37,27 @@ public class Main {
 
         int[][][][] d = new int[w][h][w][h];
 
-        int x1, y1, x2, y2;
-        for (x1 = 0; x1 < w; x1++) {
-            for (y1 = 0; y1 < h; y1++) {
-                for (x2 = 0; x2 < w; x2++) {
-                    for (y2 = 0; y2 < h; y2++) {
-                        if (map[y1][x1] && map[y2][x2]) {
-                            if (x1 == x2) {
-                                if (y1 == y2) {
-                                    d[x1][y1][x2][y2] = 0; // Azonos pontok
-                                } else if (y1 == y2 + 1 || y1 == y2 - 1) {
-                                    d[x1][y1][x2][y2] = 1; // Függőlegesen 1 távolságra vannak
-                                } else {
-                                    d[x1][y1][x2][y2] = 10000000; // Tök random koordináták
-                                }
-                            } else if (y1 == y2) {
-                                if (x1 == x2 + 1 || x1 == x2 - 1) {
-                                    d[x1][y1][x2][y2] = 1; // Vízszintesen 1 távolságra vannak
-                                } else {
-                                    d[x1][y1][x2][y2] = 10000000; // Tök random koordináták
-                                }
-                            } else {
-                                d[x1][y1][x2][y2] = 10000000; // Tök random koordináták
-                            }
-                        } else {
-                            d[x1][y1][x2][y2] = 10000000; // Falról nem mehetünk sehova
-                        }
+int x1, y1, x2, y2;
+for (x1 = 0; x1 < w; x1++) {
+    for (y1 = 0; y1 < h; y1++) {
+        for (x2 = 0; x2 < w; x2++) {
+            for (y2 = 0; y2 < h; y2++) {
+                if (map[y1][x1] && map[y2][x2]) {
+                    if (x1 == x2 && y1 == y2) {
+                        d[x1][y1][x2][y2] = 0; // Ugyanaz a mező
+                    } else if (Math.abs(x1-x2) + Math.abs(y1-y2) == 1) {
+                        d[x1][y1][x2][y2] = 1; // 1 Távolságra lévő mezők
+                    } else {
+                        d[x1][y1][x2][y2] = 10000000; // Tök random koordináták
                     }
+                } else {
+                    d[x1][y1][x2][y2] = 10000000; // Falról nem mehetünk sehova
                 }
-
             }
         }
+
+    }
+}
 
         int A_x, A_y, B_x, B_y, C_x, C_y;
 
